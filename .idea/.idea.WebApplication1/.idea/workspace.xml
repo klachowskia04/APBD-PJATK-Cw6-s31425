@@ -7,22 +7,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98ccbc66-64ff-4996-8c73-99271d3ef547" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.WebApplication1/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.WebApplication1/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/ClinicApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/ClinicApi.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/ClinicApi.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/ClinicApi.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/ClinicApi.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/ClinicApi.csproj.nuget.g.targets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClinicApi/Controllers/AppointmentsController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClinicApi/DTOs/AppointmentListDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApplication1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApplication1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ClinicApi.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ref/ClinicApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/ref/ClinicApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/refint/ClinicApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/obj/Debug/net8.0/refint/ClinicApi.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +44,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;.NET Launch Settings Profile.ClinicApi: IIS Express.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.Unnamed.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
@@ -138,7 +138,7 @@
       <option name="presentableId" value="Default" />
       <updated>1777401813917</updated>
       <workItem from="1777401815232" duration="68000" />
-      <workItem from="1777410699977" duration="1809000" />
+      <workItem from="1777410699977" duration="3698000" />
     </task>
     <servers />
   </component>
