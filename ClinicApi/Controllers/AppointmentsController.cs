@@ -126,10 +126,10 @@ public async Task<IActionResult> CreateAppointment([FromBody] CreateAppointmentR
 {
     
     if (request.AppointmentDate < DateTime.Now)
-        return BadRequest("Data wizyty nie może być w przeszłości");
+        return BadRequest(new ErrorResponseDto { Message = "Data wizyty nie może być w przeszłości" });
 
     if (string.IsNullOrWhiteSpace(request.Reason) || request.Reason.Length > 250)
-        return BadRequest("Niepoprawny opis wizyty");
+        return BadRequest(new ErrorResponseDto { Message = "Niepoprawny opis wizyty" });
 
     await using var connection = new SqlConnection(_connectionString);
     await connection.OpenAsync();
@@ -139,14 +139,14 @@ public async Task<IActionResult> CreateAppointment([FromBody] CreateAppointmentR
 
     var patientExists = (int)await checkPatientCmd.ExecuteScalarAsync();
     if (patientExists == 0)
-        return BadRequest("Pacjent nie istnieje");
+        return BadRequest(new ErrorResponseDto { Message = "Pacjent nie istnieje" });
     
     var checkDoctorCmd = new SqlCommand("SELECT COUNT(1) FROM Doctors WHERE IdDoctor = @Id", connection);
     checkDoctorCmd.Parameters.AddWithValue("@Id", request.IdDoctor);
 
     var doctorExists = (int)await checkDoctorCmd.ExecuteScalarAsync();
     if (doctorExists == 0)
-        return BadRequest("Lekarz nie istnieje");
+        return BadRequest(new ErrorResponseDto { Message = "Lekarz nie istnieje" });
     
     var conflictCmd = new SqlCommand(@"
         SELECT COUNT(1)
@@ -159,7 +159,7 @@ public async Task<IActionResult> CreateAppointment([FromBody] CreateAppointmentR
 
     var conflict = (int)await conflictCmd.ExecuteScalarAsync();
     if (conflict > 0)
-        return Conflict("Lekarz ma już wizytę w tym terminie");
+        return Conflict(new ErrorResponseDto { Message = "Lekarz ma już wizytę w tym terminie" });
     
     var insertCmd = new SqlCommand(@"
         INSERT INTO Appointments (IdPatient, IdDoctor, AppointmentDate, Status, Reason, CreatedAt)
@@ -191,11 +191,11 @@ public async Task<IActionResult> UpdateAppointment(int idAppointment, [FromBody]
         return NotFound();
 
     if (existingStatus == "Completed" && request.AppointmentDate != default)
-        return Conflict("Nie można zmienić terminu zakończonej wizyty");
+        return Conflict(new ErrorResponseDto { Message = "Nie można zmienić terminu zakończonej wizyty" });
 
     var allowedStatuses = new[] { "Scheduled", "Completed", "Cancelled" };
     if (!allowedStatuses.Contains(request.Status))
-        return BadRequest("Niepoprawny status");
+        return BadRequest(new ErrorResponseDto { Message = "Niepoprawny status" });
 
     var conflictCmd = new SqlCommand(@"
         SELECT COUNT(1)
@@ -211,7 +211,7 @@ public async Task<IActionResult> UpdateAppointment(int idAppointment, [FromBody]
 
     var conflict = (int)await conflictCmd.ExecuteScalarAsync();
     if (conflict > 0)
-        return Conflict("Lekarz ma już wizytę w tym terminie");
+        return Conflict(new ErrorResponseDto { Message = "Lekarz ma już wizytę w tym terminie" });
 
     var updateCmd = new SqlCommand(@"
         UPDATE Appointments
@@ -235,5 +235,29 @@ public async Task<IActionResult> UpdateAppointment(int idAppointment, [FromBody]
     await updateCmd.ExecuteNonQueryAsync();
 
     return Ok();
+}
+[HttpDelete("{idAppointment}")]
+public async Task<IActionResult> DeleteAppointment(int idAppointment)
+{
+    await using var connection = new SqlConnection(_connectionString);
+    await connection.OpenAsync();
+
+    var checkCmd = new SqlCommand("SELECT Status FROM Appointments WHERE IdAppointment = @Id", connection);
+    checkCmd.Parameters.AddWithValue("@Id", idAppointment);
+
+    var status = (string?)await checkCmd.ExecuteScalarAsync();
+
+    if (status == null)
+        return NotFound();
+
+    if (status == "Completed")
+        return Conflict(new ErrorResponseDto { Message = "Nie można usunąć zakończonej wizyty" });
+
+    var deleteCmd = new SqlCommand("DELETE FROM Appointments WHERE IdAppointment = @Id", connection);
+    deleteCmd.Parameters.AddWithValue("@Id", idAppointment);
+
+    await deleteCmd.ExecuteNonQueryAsync();
+
+    return NoContent();
 }
 }
