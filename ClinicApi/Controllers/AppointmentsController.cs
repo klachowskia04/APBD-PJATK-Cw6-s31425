@@ -8,11 +8,11 @@ namespace ClinicApi.Controllers;
 [Route("api/[controller]")]
 public class AppointmentsController : ControllerBase
 {
-    private readonly IConfiguration _configuration;
+    private readonly string _connectionString;
 
     public AppointmentsController(IConfiguration configuration)
     {
-        _configuration = configuration;
+        _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
     [HttpGet]
@@ -22,8 +22,7 @@ public class AppointmentsController : ControllerBase
     {
         var result = new List<AppointmentListDto>();
 
-        var connectionString =
-            _configuration.GetConnectionString("DefaultConnection");
+        var connectionString = _connectionString;
 
         await using var connection =
             new SqlConnection(connectionString);
@@ -74,7 +73,7 @@ ORDER BY a.AppointmentDate";
     [HttpGet("{idAppointment}")]
     public async Task<IActionResult> GetAppointmentById(int idAppointment)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        var connectionString = _connectionString;
 
         await using var connection = new SqlConnection(connectionString);
         await connection.OpenAsync();
@@ -121,5 +120,60 @@ WHERE a.IdAppointment = @IdAppointment";
         };
 
         return Ok(result);
+    }
+    [HttpPost]
+public async Task<IActionResult> CreateAppointment([FromBody] CreateAppointmentRequestDto request)
+{
+    
+    if (request.AppointmentDate < DateTime.Now)
+        return BadRequest("Data wizyty nie może być w przeszłości");
+
+    if (string.IsNullOrWhiteSpace(request.Reason) || request.Reason.Length > 250)
+        return BadRequest("Niepoprawny opis wizyty");
+
+    await using var connection = new SqlConnection(_connectionString);
+    await connection.OpenAsync();
+    
+    var checkPatientCmd = new SqlCommand("SELECT COUNT(1) FROM Patients WHERE IdPatient = @Id", connection);
+    checkPatientCmd.Parameters.AddWithValue("@Id", request.IdPatient);
+
+    var patientExists = (int)await checkPatientCmd.ExecuteScalarAsync();
+    if (patientExists == 0)
+        return BadRequest("Pacjent nie istnieje");
+    
+    var checkDoctorCmd = new SqlCommand("SELECT COUNT(1) FROM Doctors WHERE IdDoctor = @Id", connection);
+    checkDoctorCmd.Parameters.AddWithValue("@Id", request.IdDoctor);
+
+    var doctorExists = (int)await checkDoctorCmd.ExecuteScalarAsync();
+    if (doctorExists == 0)
+        return BadRequest("Lekarz nie istnieje");
+    
+    var conflictCmd = new SqlCommand(@"
+        SELECT COUNT(1)
+        FROM Appointments
+        WHERE IdDoctor = @IdDoctor AND AppointmentDate = @Date
+    ", connection);
+
+    conflictCmd.Parameters.AddWithValue("@IdDoctor", request.IdDoctor);
+    conflictCmd.Parameters.AddWithValue("@Date", request.AppointmentDate);
+
+    var conflict = (int)await conflictCmd.ExecuteScalarAsync();
+    if (conflict > 0)
+        return Conflict("Lekarz ma już wizytę w tym terminie");
+    
+    var insertCmd = new SqlCommand(@"
+        INSERT INTO Appointments (IdPatient, IdDoctor, AppointmentDate, Status, Reason, CreatedAt)
+        VALUES (@IdPatient, @IdDoctor, @Date, 'Scheduled', @Reason, GETDATE());
+        SELECT SCOPE_IDENTITY();
+    ", connection);
+
+    insertCmd.Parameters.AddWithValue("@IdPatient", request.IdPatient);
+    insertCmd.Parameters.AddWithValue("@IdDoctor", request.IdDoctor);
+    insertCmd.Parameters.AddWithValue("@Date", request.AppointmentDate);
+    insertCmd.Parameters.AddWithValue("@Reason", request.Reason);
+
+    var newId = Convert.ToInt32(await insertCmd.ExecuteScalarAsync());
+
+    return Created($"/api/appointments/{newId}", new { Id = newId });
     }
 }
