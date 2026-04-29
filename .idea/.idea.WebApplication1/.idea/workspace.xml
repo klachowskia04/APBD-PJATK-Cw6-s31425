@@ -7,9 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98ccbc66-64ff-4996-8c73-99271d3ef547" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ClinicApi/Controllers/AppointmentsController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClinicApi/DTOs/AppointmentListDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClinicApi/DTOs/AppointmentDetailsDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApplication1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApplication1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClinicApi/Controllers/AppointmentsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/Controllers/AppointmentsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.pdb" afterDir="false" />
@@ -31,6 +31,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4,
@@ -44,7 +47,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;.NET Launch Settings Profile.ClinicApi: IIS Express.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Project.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.Unnamed.executor&quot;: &quot;Debug&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
@@ -138,7 +141,7 @@
       <option name="presentableId" value="Default" />
       <updated>1777401813917</updated>
       <workItem from="1777401815232" duration="68000" />
-      <workItem from="1777410699977" duration="3698000" />
+      <workItem from="1777410699977" duration="6816000" />
     </task>
     <servers />
   </component>
