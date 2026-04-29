@@ -176,4 +176,64 @@ public async Task<IActionResult> CreateAppointment([FromBody] CreateAppointmentR
 
     return Created($"/api/appointments/{newId}", new { Id = newId });
     }
+[HttpPut("{idAppointment}")]
+public async Task<IActionResult> UpdateAppointment(int idAppointment, [FromBody] UpdateAppointmentRequestDto request)
+{
+    await using var connection = new SqlConnection(_connectionString);
+    await connection.OpenAsync();
+
+    var checkCmd = new SqlCommand("SELECT Status FROM Appointments WHERE IdAppointment = @Id", connection);
+    checkCmd.Parameters.AddWithValue("@Id", idAppointment);
+
+    var existingStatus = (string?)await checkCmd.ExecuteScalarAsync();
+
+    if (existingStatus == null)
+        return NotFound();
+
+    if (existingStatus == "Completed" && request.AppointmentDate != default)
+        return Conflict("Nie można zmienić terminu zakończonej wizyty");
+
+    var allowedStatuses = new[] { "Scheduled", "Completed", "Cancelled" };
+    if (!allowedStatuses.Contains(request.Status))
+        return BadRequest("Niepoprawny status");
+
+    var conflictCmd = new SqlCommand(@"
+        SELECT COUNT(1)
+        FROM Appointments
+        WHERE IdDoctor = @DoctorId 
+        AND AppointmentDate = @Date
+        AND IdAppointment <> @Id
+    ", connection);
+
+    conflictCmd.Parameters.AddWithValue("@DoctorId", request.IdDoctor);
+    conflictCmd.Parameters.AddWithValue("@Date", request.AppointmentDate);
+    conflictCmd.Parameters.AddWithValue("@Id", idAppointment);
+
+    var conflict = (int)await conflictCmd.ExecuteScalarAsync();
+    if (conflict > 0)
+        return Conflict("Lekarz ma już wizytę w tym terminie");
+
+    var updateCmd = new SqlCommand(@"
+        UPDATE Appointments
+        SET IdPatient = @PatientId,
+            IdDoctor = @DoctorId,
+            AppointmentDate = @Date,
+            Status = @Status,
+            Reason = @Reason,
+            InternalNotes = @Notes
+        WHERE IdAppointment = @Id
+    ", connection);
+
+    updateCmd.Parameters.AddWithValue("@PatientId", request.IdPatient);
+    updateCmd.Parameters.AddWithValue("@DoctorId", request.IdDoctor);
+    updateCmd.Parameters.AddWithValue("@Date", request.AppointmentDate);
+    updateCmd.Parameters.AddWithValue("@Status", request.Status);
+    updateCmd.Parameters.AddWithValue("@Reason", request.Reason);
+    updateCmd.Parameters.AddWithValue("@Notes", (object?)request.InternalNotes ?? DBNull.Value);
+    updateCmd.Parameters.AddWithValue("@Id", idAppointment);
+
+    await updateCmd.ExecuteNonQueryAsync();
+
+    return Ok();
+}
 }

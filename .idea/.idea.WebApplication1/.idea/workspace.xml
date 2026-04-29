@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98ccbc66-64ff-4996-8c73-99271d3ef547" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ClinicApi/DTOs/CreateAppointmentRequestDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClinicApi/DTOs/UpdateAppointmentRequestDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WebApplication1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WebApplication1/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClinicApi/Controllers/AppointmentsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/Controllers/AppointmentsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ClinicApi/bin/Debug/net8.0/ClinicApi.dll" afterDir="false" />
@@ -141,7 +141,7 @@
       <option name="presentableId" value="Default" />
       <updated>1777401813917</updated>
       <workItem from="1777401815232" duration="68000" />
-      <workItem from="1777410699977" duration="8379000" />
+      <workItem from="1777410699977" duration="9808000" />
     </task>
     <servers />
   </component>
